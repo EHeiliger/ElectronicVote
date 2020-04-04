@@ -1,0 +1,55 @@
+﻿@model IEnumerable<ElectronicVoteSystem.Models.Candidate>
+
+@{
+    ViewData["Title"] = "Candidatos";
+}
+
+<h1>Cadidatos</h1>
+
+<p>
+    <a asp-action="Create">Nuevo cadidato</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ProfileAvatar)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Citizen)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Party)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            var photoPath = "~/images/" + ((!string.IsNullOrEmpty(item.ProfileAvatar) ? item.ProfileAvatar : "nophoto.png"));
+            string status = item.Status ? "Activo" : "Inactivo"; 
+            <tr>
+                <td>
+                    <img style="width: 200px;height: 200px" src="@photoPath" alt="Alternate Text" asp-append-version="true" />
+                </td>
+                <td>
+                    @status
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Citizen.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Party.Description)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id"><i class="fas fa-edit"></i>Editar</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id"><i class="fas fa-trash-alt"></i>Borrar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

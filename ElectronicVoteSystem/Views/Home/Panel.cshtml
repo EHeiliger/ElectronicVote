@@ -1,0 +1,19 @@
+﻿
+@{
+    ViewData["Title"] = "Panel";
+}
+
+<h1>Panel de Administración</h1>
+<div>
+
+    <ul class="list-group" style="font-size: 20px">
+        <li class="list-group-item active text"><i class="fas fa-toolbox"></i> Seleccione una opcinó</li>
+        <a asp-action="Index" asp-controller="Citizens" class="list-group-item list-group-item-action text-center"> Ciudadanos</a>
+        <a asp-action="Index" asp-controller="Parties" class="list-group-item list-group-item-action text-center">Partidos</a>
+        <a asp-action="Index" asp-controller="Candidates" class="list-group-item list-group-item-action text-center">Candidatos</a>
+        <a asp-action="Index" asp-controller="Positions" class="list-group-item list-group-item-action text-center">Puestos</a>
+        <a asp-action="Index" asp-controller="Elections" class="list-group-item list-group-item-action text-center">Elecciones</a>
+        <a asp-action="Index" asp-controller="BallotPapers" class="list-group-item list-group-item-action text-center">Boletas</a>
+    </ul>
+
+</div>

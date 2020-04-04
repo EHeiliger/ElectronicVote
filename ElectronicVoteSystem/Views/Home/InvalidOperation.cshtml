@@ -1,0 +1,32 @@
+﻿
+@{
+    ViewData["Title"] = "Operacion no valida";
+}
+
+    <h1>Operacion no valida</h1>
+
+
+<style>
+    #main {
+        height: 80vh;
+    }
+</style>
+
+
+
+<div class="d-flex justify-content-center align-items-center" id="main">
+    <h1 class="mr-3 pr-3 align-top border-right d-inline d-block align-content-center">Oops!</h1>
+    <div class="d-inline d-inline-block align-middle">
+        <h2 class="font-weight-normal lead" id="desc">@ViewBag._Error.</h2>
+    </div>
+
+</div>
+
+<div class="d-flex justify-content-center align-items-center"  style="margin-top: -240px">
+    <form asp-controller="Home" asp-action="@ViewBag._Redirect">
+        <button class="btn btn-primary" type="submit">Continuar</button>
+    </form>
+</div>
+
+
+

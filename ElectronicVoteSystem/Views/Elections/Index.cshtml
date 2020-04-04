@@ -1,0 +1,69 @@
+﻿@using Microsoft.CodeAnalysis.CSharp.Syntax
+@model IEnumerable<ElectronicVoteSystem.Models.Election>
+
+@{
+    ViewData["Title"] = "Elecciones";
+}
+
+    <h1>Elecciones</h1>
+
+<p>
+    <a asp-action="Create">Nueva Elecciones</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateInit)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateEnd)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Position)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateInit)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateEnd)
+            </td>
+            <td>
+                @*@Html.DisplayFor(modelItem => item.Status)*@
+                @{
+                    if (item.Status)
+                    {
+                        <a class="btn btn-danger" style="width: 100px" asp-action="ActiveElection" asp-route-id="@item.Id">Finalizar</a>
+                    }
+                    else
+                    {
+                        <a class="btn btn-success" style="width: 100px" asp-controller="Home" asp-action="Results" asp-route-id="@item.Id">Resultados</a>
+                    }
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Position.Name)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id"><i class="fas fa-edit"></i>Editar</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id"><i class="fas fa-trash-alt"></i>Borrar</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

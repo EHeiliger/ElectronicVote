@@ -1,0 +1,60 @@
+﻿@model IEnumerable<ElectronicVoteSystem.Models.BallotPaper>
+
+@{
+    ViewData["Title"] = "Index"; ;
+}
+
+<main role="main">
+
+    <section class="jumbotron text-center">
+        <div class="container">
+            <h1 class="jumbotron-heading">Boleta Electoral </h1>
+            <p class="lead text-muted">Para elegir su candidato debe hacer debe hacer clic en el botón votar debajo de la foto de su candidato </p>
+            <div>
+                <form asp-action="Vote">
+                    <button type="submit" class="btn btn-secondary my-2"><i class="fas fa-exclamation-triangle"></i>  Click aqui para votar nulo  <i class="fas fa-exclamation-triangle"></i></button>
+                    <input hidden="" type="number" name="Id" value="@ViewBag._NuloId"/>
+                </form>
+            </div>
+              
+           
+
+        </div>
+    </section>
+
+
+    <div class="album py-5 bg-light">
+        <div class="container">
+
+            <div class="row">
+                <div class="row">
+                    @foreach (var item in Model)
+                    {
+                        // string nombre = item.Candidate.Citizen.Name;
+                        var photoPath = "~/images/" + ((!string.IsNullOrEmpty(item.Candidate.ProfileAvatar) ? item.Candidate.ProfileAvatar : "nophoto.png"));
+                        var citizen = new ElectronicVotingContext().Citizen.Find(item.Candidate.CitizenId);
+                        <div class="col-md-4 ">
+                            <div class="card mb-4 box-shadow">
+                                <img class="card-img-top" style="height: 225px; width: 100%; display: block;" src="@photoPath" data-holder-rendered="true" asp-append-version="true">
+                                <div class="card-body">
+                                    <p class="card-text"> @citizen.Name @citizen.LastName </p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="offset-md-5">
+                                            <form asp-action="Vote">
+                                                <button type="submit" class="btn btn-lg btn-primary">Votar</button>
+                                                <input hidden="" type="number" name="Id" value="@item.Id" />
+                                            </form>
+                                        </div>
+                                        <small class="text-muted"></small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main>

@@ -1,0 +1,47 @@
+﻿@model IEnumerable<ElectronicVoteSystem.Models.BallotPaper>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Boletas Electorales</h1>
+
+<p>
+    <a asp-action="Create">Nueva Boleta</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Election)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Candidate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+       string status = (bool) item.Status ? "Activo" : "Inactivo"; 
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Election.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Candidate.CitizenId)
+            </td>
+            <td>
+               @status
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id"><i class="fas fa-edit"></i>Editar</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id"><i class="fas fa-trash-alt"></i>Borrar</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

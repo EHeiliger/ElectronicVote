@@ -1,0 +1,34 @@
+﻿@using System.Linq
+@using Microsoft.EntityFrameworkCore
+@model IEnumerable<ElectronicVoteSystem.Models.Election>
+@{
+    ViewData["Title"] = "Elections";
+}
+
+<h1>Electciones</h1>
+
+<div class="list-group">
+    <a href="#" class="list-group-item list-group-item-action active"> Elecciones disponibles </a>
+
+
+
+
+
+    @foreach (var election in Model)
+    {
+        using (ElectronicVotingContext db = new ElectronicVotingContext())
+        {
+            @if (db.BallotPaper.Include(b => b.Candidate).Where(c => c.Candidate.Status == true).Include(b => b.Election).Where(e => e.ElectionId == election.Id).ToList().Count < 2)
+            {
+            <a asp-action="BallotPapers" asp-route-id="@election.Id" class="list-group-item list-group-item-action text-center disabled  ">@election.Name --- No se puede proceder con la votación, solo tiene un candidato</a>
+            }
+            else
+            {
+                <a asp-action="BallotPapers" asp-route-id="@election.Id" class="list-group-item list-group-item-action text-center">@election.Name</a>
+            }
+        }
+
+
+    }
+</div>
+

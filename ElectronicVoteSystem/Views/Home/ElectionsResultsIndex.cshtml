@@ -1,0 +1,19 @@
+﻿@model IEnumerable<ElectronicVoteSystem.Models.Election>
+@{
+    ViewData["Title"] = "Resultados de eleciones";
+}
+
+    <h1>Resultados de elecione</h1>
+
+<div class="list-group">
+    <a href="#" class="list-group-item list-group-item-action active"><i class="fas fa-poll-h"></i> Resultado de elecciones</a>
+
+
+    @foreach (var election in Model)
+    {
+        <a asp-action="Results" asp-route-id="@election.Id" class="list-group-item list-group-item-action text-center">@election.Name</a>
+
+    }
+</div>
+
+

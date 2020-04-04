@@ -1,0 +1,30 @@
+﻿@model ElectronicVoteSystem.Models.Election
+<div id="chart"></div>
+
+@section Scripts
+{
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+    <script type="text/javascript">
+
+        google.charts.load('current', { 'packages': ['corechart'] });
+        google.charts.setOnLoadCallback(drawChart);
+        function drawChart() {
+            var jsonData = $.ajax({
+                url: "/home/OnGetChartData/@Model.Id",
+                dataType: "json",
+                async: false
+            }).responseText;
+            var data = new google.visualization.DataTable(jsonData);
+            var options = {
+                'title': '@Model.Name',
+                'width': 600,
+                'height': 500
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('chart'));
+            chart.draw(data, options);
+        }
+
+    </script>
+}
